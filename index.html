@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Milk Bill Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body style="font-family: Arial; padding: 20px;">
+
+<h2>Milk Bill Generator</h2>
+
+<label>Customer Name:</label><br>
+<input type="text" id="name"><br><br>
+
+<label>Address:</label><br>
+<input type="text" id="address"><br><br>
+
+<label>Milk Quantity (Litres):</label><br>
+<input type="number" id="quantity"><br><br>
+
+<label>Price per Litre:</label><br>
+<input type="number" id="price"><br><br>
+
+<button onclick="generatePDF()">Generate PDF</button>
+
+<script>
+async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    let name = document.getElementById("name").value;
+    let address = document.getElementById("address").value;
+    let quantity = document.getElementById("quantity").value;
+    let price = document.getElementById("price").value;
+
+    let total = quantity * price;
+
+    doc.text("Milk Delivery Bill", 20, 20);
+    doc.text("Customer Name: " + name, 20, 40);
+    doc.text("Address: " + address, 20, 50);
+    doc.text("Milk Quantity: " + quantity + " Litres", 20, 60);
+    doc.text("Price per Litre: Rs " + price, 20, 70);
+    doc.text("Total Amount: Rs " + total, 20, 80);
+
+    doc.save("milk-bill.pdf");
+}
+</script>
+
+</body>
+</html>
